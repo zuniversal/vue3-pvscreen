@@ -1,0 +1,331 @@
+.home {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 700px;
+  font-family: Microsoft YaHei;
+  // background: url(/bg.jpg) no-repeat cover;
+  // background: url(/bg.jpg);
+  background: url(/bg.jpg);
+  background: url(~@/static/img/home/bg.png);
+  background-size: 100% 100%;
+  .echarts{
+    height: 100px;
+    height: 100%;
+  }
+  &.mobile {
+    flex-direction: column;
+    height: auto;
+    background: url(~@/static/img/home/mbg.png) no-repeat !important;
+    background: url(~@/static/img/home/mbg.png) !important;
+    // background: #0f5759 !important;
+    background-size: 100% 100%;
+    // padding-top: 30px;
+    .systemTitle {
+      position: fixed;
+      top: 0;
+      left: 15px;
+      order: -1;
+      position: initial;
+      .logo {
+        width: initial;
+        margin-left: 3%;
+      }
+    }
+    .electricPie {
+      flex-direction: column;
+    }
+    .center {
+      order: -1;
+      margin-top: 1%;
+    }
+    .centerMachineIcon {
+      padding: initial;
+    }
+    .machineCircleWrapper {
+      padding-top: 40px;
+      padding-bottom: 100px;
+    }
+    .electricPieItem {
+      width: 100%;
+      height: 200px;
+    }
+    .installCapacity {
+      flex: 3;
+      height: 260px;
+      height: 300px;
+    }
+    .powerLineChartWrapper {
+      width: 100%;
+    }
+    .envInfo {
+      position: initial;
+    }
+    .echarts{
+      /* 解决移动端不显示 bar/ line 图bug */
+      min-height: 200px;
+    }
+  }
+
+  .logo {
+    width: 16%;
+    margin-top: -5px;
+    margin-left: -1%;
+  }
+
+  .chartVal {
+    color: #31d4d5;
+    font-weight: 500;
+    font-size: 2.1vh;
+    font-style: italic;
+  }
+  .chartTitle {
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.5vh;
+    white-space: nowrap;
+  }
+  .factoryTitle {
+    margin: -15px auto;
+    margin: 0px auto;
+    color: #fff;
+    font-size: 2.5vh;
+  }
+  .title {
+    color: #fff;
+    font-weight: 400;
+    font-size: 2.3vh;
+  }
+
+  .left {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 3%;
+    margin-left: 1%;
+  }
+  .center {
+    display: flex;
+    flex: 1;
+    margin-top: 5%;
+    margin-bottom: 10px;
+  }
+  .righBlock {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    transition: all 1s linear !important;
+  }
+  .powerInfoWrapper {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+  .infoBox {
+    display: flex;
+    flex: 1;
+    padding: 20px;
+    .leftBox {
+      margin-right: 10px;
+    }
+    .rightBox {
+      margin-left: 10px;
+    }
+  }
+
+  .right {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin-top: 3%;
+    margin-right: 1%;
+    transition: all 1s linear !important;
+  }
+}
+
+.echarts-for-react {
+  width: 100%;
+  height: 100% !important;
+}
+
+.iconTitle {
+  display: flex;
+  justify-content: space-between;
+  .icon {
+    margin-right: 10px;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+  }
+
+  .iconRight {
+    .text {
+      color: #fff;
+      font-weight: bolder;
+      font-size: 1.8vh;
+      white-space: nowrap;
+    }
+    .val {
+      margin-left: 10px;
+      color: #fd6d4f;
+      font-weight: bolder;
+      font-size: 2vh;
+      font-style: italic;
+    }
+  }
+}
+
+.centerBox {
+  display: flex;
+  // overflow: hidden;
+  width: 100%;
+  background: url('/border.png');
+  background: url(~@/static/img/home/centerBox.png);
+  background-size: 100% 100%;
+}
+
+.leftBox {
+  display: flex;
+  // overflow: hidden;
+  width: 100%;
+  padding: 10px 12px;
+  // overflow: hidden;
+  background: url('/border.png');
+  background: url(~@/static/img/home/leftBox.png);
+  background-size: cover;
+}
+
+.rightBox {
+  display: flex;
+  // overflow: hidden;
+  width: 100%;
+  padding: 10px 12px;
+  // overflow: hidden;
+  background: url('/border.png');
+  background: url(~@/static/img/home/rightBox.png);
+  background-size: cover;
+}
+
+.flexBorderBox {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  // &:not(:last-child) {
+  //   border-image: url(~@/static/img/home/verticalLine.png) 30 stretch;
+  //   border-image: url(~@/static/img/home/logo.png) 30 stretch;
+  //   border: 10px solid transparent;
+  // }
+
+  .chartVal {
+    margin-left: 30px;
+  }
+}
+
+.lightBox {
+  padding: 2px 12px;
+  color: #fff;
+  font-size: 12px;
+  white-space: nowrap;
+  background: rgba(7, 255, 220, 0.3);
+  border: 1px solid #07ffdc;
+  cursor: default;
+}
+
+.colorIntroWrapper {
+  display: flex;
+  justify-content: space-evenly;
+  color: #fff;
+  font-size: 1.8vh;
+  .colorIntroItem {
+    transform: scale(0.9);
+    &.introBlue {
+      &::before {
+        border: 2px solid #0dd0d2;
+      }
+    }
+    &.introGreen {
+      &::before {
+        border: 2px solid #0ceba3;
+      }
+    }
+    &.introOrange {
+      &::before {
+        border: 2px solid #fc7154;
+      }
+    }
+    &::before {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      margin-right: 5px;
+      border: 2px solid #0dd0d2;
+      border-radius: 50%;
+      content: ' ';
+    }
+  }
+}
+
+@keyframes slash {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  30% {
+    transform: rotate(45deg) scale(1);
+  }
+  60% {
+    transform: rotate(45deg) scale(1.414);
+  }
+  100% {
+    transform: rotate(45deg) scale(1.414);
+  }
+}
+
+@keyframes translateLeft {
+  0% {
+    transform: rotate(45deg) scale(2) translate(0px, -0%);
+  }
+  100% {
+    transform: rotate(45deg) scale(2) translate(0px, -100%);
+  }
+}
+
+@keyframes translateRight {
+  0% {
+    transform: rotate(-45deg) scale(2) translate(0px, -0%);
+  }
+  100% {
+    transform: rotate(-45deg) scale(2) translate(0px, -100%);
+  }
+}
+
+@keyframes translateLeft {
+  0% {
+    transform: rotate(45deg) scale(2) translate(0px, -100%);
+  }
+  100% {
+    transform: rotate(45deg) scale(2) translate(0px, -0%);
+  }
+}
+
+@keyframes translateRight {
+  0% {
+    transform: rotate(-45deg) scale(2) translate(0px, -100%);
+  }
+  100% {
+    transform: rotate(-45deg) scale(2) translate(0px, -0%);
+  }
+}
+
+@keyframes translateLeftR {
+  0% {
+    transform: rotate(45deg) scale(2) translate(0px, 100%);
+  }
+  100% {
+    transform: rotate(45deg) scale(2) translate(0px, -0%);
+  }
+}
