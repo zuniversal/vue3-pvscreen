@@ -30,7 +30,6 @@ const usePlatform = (config = {}) => {
       mobileCb()
     } else {
       console.log('前端是pc端');
-      window.addEventListener('resize', resize);
       return () => {
         console.log(' useEffect 卸载 ： ');
         window.removeEventListener('resize', resize);
