@@ -25,11 +25,11 @@ const usePlatform = (config = {}) => {
       )
     ) {
       console.log('前端是移动端');
-      window.addEventListener('resize', resize);
       setIsMobile('mobile');
       mobileCb()
     } else {
       console.log('前端是pc端');
+      window.addEventListener('resize', resize);
       return () => {
         console.log(' useEffect 卸载 ： ');
         window.removeEventListener('resize', resize);
