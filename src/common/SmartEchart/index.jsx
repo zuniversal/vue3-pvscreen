@@ -80,7 +80,7 @@ export default (props, ctx) => {
     ...props.option,
   }
   // return { option };
-  return <VChart class="chart" {...props} option={option} autoresize loading-options={loadingOptions} />
+  return <VChart class="chart" {...props} option={option} loading-options={loadingOptions} />
   return <VChart class="chart" option={props.option} />
   // return <VChart class="chart" option={option.value} />
 }
