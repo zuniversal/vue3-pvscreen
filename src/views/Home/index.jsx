@@ -160,6 +160,11 @@ export default defineComponent({
   onMounted(() => {
     console.log(' Home onMounted ： ',    )// 
     ajax()
+    isShowCom.value = !isShowCom.value
+    setTimeout(() => {
+      console.log('  延时器 ： ',  )
+      isShowCom.value = !isShowCom.value
+    }, 3000)
   })
 
   const leftCom = () => <div className="left">
@@ -185,7 +190,7 @@ export default defineComponent({
     <div className={`home ${isMobile.value}`}>
       <SystemTitle></SystemTitle>
       
-      {leftCom()}
+      {isShowCom.value ? leftCom() : leftCom()}
 
       <div className="center">
         <div className="centerBox powerInfoWrapper">
@@ -197,7 +202,7 @@ export default defineComponent({
         </div>
       </div>
       
-      {rightCom()}
+      {isShowCom.value ? rightCom() : rightCom()}
       {/* <PowerLineChart></PowerLineChart> */}
     </div>
   );
