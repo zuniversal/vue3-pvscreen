@@ -17,6 +17,7 @@ const usePlatform = (config = {}) => {
   };
 
   const isMobileListener = (cb) => {
+    console.log(' isMobile isMobileListener ： ',    )// 
     let userAgent = navigator.userAgent.toLowerCase();
     if (
       /ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(
@@ -31,12 +32,14 @@ const usePlatform = (config = {}) => {
       setIsMobile('');
     }
   }
+
+  isMobileListener()
   
   onMounted(() => {
     console.log(' isMobile onMountedonMounted ： ',    )// 
     window.addEventListener('resize', isMobileListener);
     return () => {
-      console.log(' useEffect 卸载 ： ');
+      console.log(' isMobile useEffect 卸载 ： ');
       window.removeEventListener('resize', isMobileListener);
     };
   });

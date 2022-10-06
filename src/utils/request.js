@@ -70,7 +70,7 @@ export const isTips = res => {
   }
 
   const { status, data, config } = res;
-  const { msg_show, code } = data;
+  const { msg_show = '请求报错！', code } = data;
   // const { noTips } = config.data;
   const { noTips } = res.config.customInfo;
   const { url } = config;

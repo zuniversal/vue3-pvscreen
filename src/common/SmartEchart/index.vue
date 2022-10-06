@@ -13,7 +13,7 @@ import {
   GridComponent,
 } from 'echarts/components';
 import VChart, { THEME_KEY } from 'vue-echarts';
-import { ref, defineComponent, onMounted, defineProps } from 'vue';
+import { ref, defineComponent, onMounted, defineProps, computed, } from 'vue';
 import 'echarts-liquidfill'
 import debounce from 'lodash/debounce';
 import common from './common';
@@ -42,21 +42,29 @@ const loadingOptions = {
 const props = defineProps({
   option: Object,
 })
-const option = {
-  ...common,
-  ...props.option,
-}
+// const option = {
+//   ...common,
+//   ...props.option,
+// }
+const option = computed(() => {
+  console.log(' computed props.option ： ', props.option,   )// 
+  return {
+    ...common,
+    ...props.option,
+  } 
+})
+console.log(' option ： ', option,  )// 
 
 const chartRef = ref(null)
 onMounted(() => {
-  console.log(' onMounted resizeresize ： ', chartRef   )//
+  // console.log(' onMounted resizeresize ： ', chartRef   )//
 })
 
 const resize = debounce(() => {
   console.log(' resizeresize ： ', chartRef.value   )// 
   chartRef.value?.resize()
 }, 500);
-console.log(' onMounted2 resizeresize ： ', chartRef   )//
+// console.log(' onMounted2 resizeresize ： ', chartRef   )//
 window.addEventListener('resize', resize);
 </script>
 

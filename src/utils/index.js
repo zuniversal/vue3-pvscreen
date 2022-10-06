@@ -1,6 +1,18 @@
 import moment from 'moment';
 import business from 'moment-business';
 // import { PRIMARY } from '@/constants';
+import {
+  Icon,
+  notification,
+  Button,
+  Input,
+  message,
+  Modal,
+  Select,
+  Radio,
+  Checkbox,
+  DatePicker,
+} from 'ant-design-vue';
 
 const PRIMARY = '#00B460';
 

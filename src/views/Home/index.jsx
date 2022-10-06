@@ -187,10 +187,10 @@ export default defineComponent({
   </div>
 
   return () => (
-    <div className={`home ${isMobile.value}`}>
+    isShowCom.value ? <div className={`home ${isMobile.value}`}>
       <SystemTitle></SystemTitle>
       
-      {isShowCom.value ? leftCom() : null}
+      {leftCom()}
 
       <div className="center">
         <div className="centerBox powerInfoWrapper">
@@ -202,9 +202,9 @@ export default defineComponent({
         </div>
       </div>
       
-      {isShowCom.value ? rightCom() : null}
+      {rightCom()}
       {/* <PowerLineChart></PowerLineChart> */}
-    </div>
+    </div> : null
   );
 }
 });

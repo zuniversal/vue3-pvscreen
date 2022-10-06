@@ -211,6 +211,7 @@ const optionHandle = params => {
     powerlineParams,
     query,
   } = params;
+  console.log(' Home optionHandle ： ', params,   )// 
   return {
     grid: {
       top: '18%',
@@ -353,7 +354,7 @@ const optionHandle = params => {
 
 const ActionTabs = props => {
   return (
-    <Tabs defaultActiveKey="1" onChange={props.onChange}>
+    <Tabs defaultActiveKey="1" change={props.onChange}>
       {configs.map((v, i) => (
         <TabPane {...v}></TabPane>
       ))}
