@@ -4,7 +4,7 @@ import { useStore,  } from 'vuex'//
 import { defState,  } from '@/store/index';
 import '@/static/css/index.less';
 import { nowYearMonthDayFull, toFixed } from '@/utils';
-import { POWER_CURVE } from '@/views/Home/PowerLineChart';
+import { POWER_CURVE, configs } from '@/views/Home/PowerLineChart';
 import './style.less';
 import usePlatform from '@/hooks/usePlatform';
 import SystemTitle from './SystemTitle';
@@ -140,7 +140,6 @@ export default defineComponent({
     const req = (props) => {
       store.dispatch('getRealDataAsync', );
       store.dispatch('getElectricFeeAsync', props.electricFeeParams);
-      store.dispatch('getPowerlineInfoAsync', );
       store.dispatch('getRealDataStatisticsAsync', );
       store.dispatch('getTemperatureHumidityAsync', );
       store.dispatch('getStatisticsAsync', );
@@ -154,11 +153,21 @@ export default defineComponent({
       req(props)
     // }, 300000)
     }, 10000)
+    setInterval(() => {
+      const loopIndex = configs.findIndex(v => v.key === props.powerlineParams.query)
+      const nextIndex = loopIndex < configs.length - 1 ? loopIndex + 1 : 0
+      console.log('  loopIndex ： ', loopIndex, nextIndex, configs[nextIndex].key, )
+      getPowerlineInfoAsync({
+        ...props.powerlineParams,
+        query: configs[nextIndex].key,
+      });
+    }, 15000)
     req(props)
   }
   
   onMounted(() => {
     console.log(' Home onMounted ： ',    )// 
+    store.dispatch('getPowerlineInfoAsync', );
     ajax()
     isShowCom.value = false
     setTimeout(() => {

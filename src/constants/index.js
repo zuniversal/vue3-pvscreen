@@ -2,7 +2,13 @@ import { animate, createProperty } from '@/utils';
 
 export const isDev = process.env.NODE_ENV === 'development';
 
-export const TEST_URL = `/api`;
+const { protocol = 'http:', hostname } = window.location;
+const proxyPrefix = {
+  'http:': '',
+  'https:': '/screen',
+}[protocol];
+
+export const TEST_URL =  proxyPrefix + `/api`;
 export const PROXY_URL = `/api`;
 export const BASE_URL = isDev ? PROXY_URL : TEST_URL;
 export const URL = `${BASE_URL}`;

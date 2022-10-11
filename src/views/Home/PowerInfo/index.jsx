@@ -1,4 +1,15 @@
 import './style.less';
+import p00 from '@/static/img/home/center/00.png'
+import p01 from '@/static/img/home/center/01.png'
+import p02 from '@/static/img/home/center/02.png'
+import p10 from '@/static/img/home/center/10.png'
+import p11 from '@/static/img/home/center/11.png'
+import p12 from '@/static/img/home/center/12.png'
+import p20 from '@/static/img/home/center/20.png'
+import p21 from '@/static/img/home/center/21.png'
+import p22 from '@/static/img/home/center/22.png'
+import battery from '@/static/img/home/center/battery.png'
+import water from '@/static/img/home/center/water.png'
 
 const configs1 = [
   {
@@ -94,15 +105,15 @@ const configs = [
 ];
 
 const statusMap = {
-  '00': require('@/static/img/home/center/00.png'),
-  '01': require('@/static/img/home/center/01.png'),
-  '02': require('@/static/img/home/center/02.png'),
-  '10': require('@/static/img/home/center/10.png'),
-  '11': require('@/static/img/home/center/11.png'),
-  '12': require('@/static/img/home/center/12.png'),
-  '20': require('@/static/img/home/center/20.png'),
-  '21': require('@/static/img/home/center/21.png'),
-  '22': require('@/static/img/home/center/22.png'),
+  '00': p00,
+  '01': p01,
+  '02': p02,
+  '10': p10,
+  '11': p11,
+  '12': p12,
+  '20': p20,
+  '21': p21,
+  '22': p22,
 }
 
 const PowerInfo = props => {
@@ -148,7 +159,7 @@ const PowerInfo = props => {
         {/* <div className='circleRingWrapper circleRingWrapper3'><img src={require('@/static/img/home/center/circle1.png')} className="circleRing"/></div> */}
         <div className="centerMachineIcon">
           <img
-            src={require('@/static/img/home/center/battery.png')}
+            src={battery}
             className="centerIcon"
           />
           开机
@@ -178,7 +189,7 @@ const PowerInfo = props => {
       {/* <img src={require('@/static/img/home/center/circle.png')} className="circleRing"/> */}
       <div className="centerMachineIcon">
         <img
-          src={require('@/static/img/home/center/water.png')}
+          src={water}
           className="centerIcon"
         />
         开机
