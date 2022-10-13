@@ -270,7 +270,7 @@ const optionHandle = params => {
       trigger: 'axis',
       formatter: params => {
         return params
-          .map(v => `${v.marker} ${v.seriesName} ${v.value ?? '-'} ${configs.find(v => v.key === query).yAxisName}<br/>`)
+          .map(v => `${v.marker} ${query === powerConfigMap.POWER_LOAD ? '' : v.seriesName} ${v.value ?? '-'} ${configs.find(v => v.key === query).yAxisName}<br/>`)
           .join(' ');
       },
     },
