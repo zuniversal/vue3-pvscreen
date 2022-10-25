@@ -10,6 +10,7 @@ import p21 from '@/static/img/home/center/21.png'
 import p22 from '@/static/img/home/center/22.png'
 import battery from '@/static/img/home/center/battery.png'
 import water from '@/static/img/home/center/water.png'
+import { createIndexArr } from '@/utils';
 
 const configs1 = [
   {
@@ -116,8 +117,36 @@ const statusMap = {
   '22': p22,
 }
 
+const lightDots = <div className="lightDotWrapper ">{createIndexArr(50).map((v, i) => <div key={i} className="lightDot "></div>)}</div>
+const InfiniteLight = ({direction, noAnimate, data}) => {
+  return data == 0 ? lightDots : <marquee width="100%" scrolldelay="80" loop="infinite" direction={data == 1 ? 'left' : 'right'}>{lightDots}</marquee>  
+}
+
+// 光伏 只有电压没有电流，说明不发电了，所以虚线就不动。(有电流就流向中间  光伏电流需要同时判断 pv1、pv2. 都为0就不动了，否则流向中心)
+// 储能 充电1，放电2，待机0  放电 储能流向中间，充电 中间流向储能
+// 负载 负载不为0中间流向负载，否则不动
+// 电网 电流 >0中间流向电网 0线不动，<0时电网流向中间
+
 const PowerInfo = props => {
-  const isPositiveCls = props.realStatus.ps.current > 0 ? 'inner1R' : ''
+  const {realStatus,  } = props
+  
+  const isPVZero = realStatus.pv.pv1_current == 0 && realStatus.pv.pv2_current == 0
+  const isPVCls = isPVZero ? 'noAnimate' : ''
+  // const isEnergyCls = realStatus.ps.status == 0 ? 'noAnimate' : ''
+  const textBgIndex = realStatus.ps.status
+  const isEnergyCls = {
+    0: 'noAnimate',
+    1: '',
+    2: 'energyReverse',
+  }[textBgIndex]
+  const isLoadCls = realStatus.ld.pe != 0 ? '' : 'noAnimate'
+  const isElectricCls = realStatus.gd.current > 0 ? '' : 'noAnimate'
+
+  const pvStatus = isPVZero ? 0 : 1
+  const energyStatus = realStatus.ps.status
+  const loadStatus = realStatus.ld.pe != 0 ? 2 : 0
+  const electricStatus = realStatus.gd.current == 0 ? 0 : (realStatus.gd.current > 0 ? 1 : 2)
+
   return (
     <div className="machineCircleWrapper ">
       {configs.map((item, index) => (
@@ -135,11 +164,25 @@ const PowerInfo = props => {
         </div>
       ))}
       <div className="machineCircle ">
-        <div className="innerWrapper">
-          <div className={`inner inner1 ${isPositiveCls}`}></div>
-          <div className="inner inner2"></div>
-          <div className="inner inner3"></div>
-          <div className="inner inner4"></div>
+        {/* <div className="innerWrapper">
+          <div className={`inner inner1 ${isPVCls}`}></div>
+          <div className={`inner inner2 ${isEnergyCls}`}></div>
+          <div className={`inner inner3 ${isLoadCls}`}></div>
+          <div className={`inner inner4 ${isElectricCls}`}></div>
+          <div className={`inner inner1bg `}></div>
+          <div className={`inner inner2bg `}></div>
+          <div className={`inner inner3bg `}></div>
+          <div className={`inner inner4bg `}></div>
+        </div> */}
+        <div className="innerWrapper lightWrapper">
+          {/* <div className={`lightsBox lightsBox1 ${isPVCls}`}><InfiniteLight data={pvStatus} /></div>
+          <div className={`lightsBox lightsBox2 ${isEnergyCls}`}><InfiniteLight data={energyStatus} /></div>
+          <div className={`lightsBox lightsBox3 ${isLoadCls}`}><InfiniteLight data={loadStatus} /></div>
+          <div className={`lightsBox lightsBox4 ${isElectricCls}`}><InfiniteLight data={electricStatus} /></div> */}
+          <div className={`lightsBox lightsBox1`}><InfiniteLight data={pvStatus} /></div>
+          <div className={`lightsBox lightsBox2`}><InfiniteLight data={loadStatus} /></div>
+          <div className={`lightsBox lightsBox3`}><InfiniteLight data={energyStatus} /></div>
+          <div className={`lightsBox lightsBox4`}><InfiniteLight data={electricStatus} /></div>
         </div>
         {/* <div className='circleRingWrapper2'>
       <div className='circleRingWrapper3'>
@@ -147,7 +190,7 @@ const PowerInfo = props => {
         <img src={require('@/static/img/home/center/circle1.png')} className="circleRing"/></div></div></div> */}
 
         {/* <img src={require('@/static/img/home/center/circle1.png')} className="circleRing"/></div> */}
-        <div className="circleRingWrapper circleRingWrapper2">
+        <div className={`circleRingWrapper circleRingWrapper2 textBg${textBgIndex}`}>
           <img
             src={statusMap[props.realStatus.status]}
             className="circleRing2"

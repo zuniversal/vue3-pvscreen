@@ -6,7 +6,7 @@ const configs1 = [
     val: '26097284.52',
   },
   {
-    text: '累计无功电量KVarh',
+    text: '累计无功电量kVarh',
     val: '8584633.07',
   },
 ]
@@ -18,7 +18,7 @@ const configs2 = [
     key: 'ep',
   },
   {
-    text: '累计无功电量KVarh',
+    text: '累计无功电量kVarh',
     val: '8584633.07',
     key: 'eq',
   },
