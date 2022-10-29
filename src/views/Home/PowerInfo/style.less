@@ -81,9 +81,15 @@
   .lightDot {
     width: 7px;
     height: 3px;
+    width: 10px;
+    height: 4px;
+    height: 2px;
     margin: 2px;
     display: inline-block;
     background: #0dd0d2;
+    &.noLightBg {
+      background: none;
+    }
   }
   
   .lightWrapper {
@@ -95,12 +101,47 @@
     overflow: hidden;
 
     flex-wrap: wrap;
+    .dashLine{
+      width: 93%;
+      width: 100%;
+      height: 2px;
+      position: absolute;
+      background: rgb(190 190 190 / 0.5);
+      margin: 11px 0;
+    }
+    .lightTracker{
+      width: 100%;
+      height: 100%;
+    }
     .lightsBox{
       display: inline-flex;
       flex: 1;
       width: 50%;
       height: 50%;
+      position: relative;
       
+      .lightMarquee{
+        z-index: 2;
+        
+        width: 100%;
+        height: 15px;
+        overflow: hidden;
+        white-space: nowrap;
+        // +div{
+        //   height: 15px;
+        //   white-space: nowrap;
+        // }
+        
+        // &::after {
+        //   content: " ";
+        //   display: inline-block;
+        //   width: 0px;
+        //   height: 100%;
+        //   font-size: 20px;
+        //   border-left: 1px dashed #0dd0d2;
+        //   transform: rotate(45deg);
+        // }
+      }
       &.lightsBox1 {
         transform: rotate(45deg) translate(0, 40%);
       }
@@ -115,71 +156,6 @@
         // transform: rotate(-135deg) translate(0, 40%);
         transform: rotate(45deg) translate(0, 40%);
       }
-
-
-      // background: cyan;
-      // position: absolute;
-
-      // &::after {
-      //   content: " ";
-      //   display: inline-block;
-      //   width: 0px;
-      //   height: 100%;
-      //   font-size: 20px;
-      //   border-left: 1px dashed #0dd0d2;
-      //   transform: rotate(45deg);
-      // }
-      // &.lightsBox1 {
-      //   &::after {
-      //     transform: rotate(-45deg) scale(2) translate(20px, 20%);
-      //     animation: tasLeft 3.5s infinite linear;
-      //   }
-      // }
-      // &.lightsBox2 {
-      //   &::after {
-      //     // transform: rotate(45deg) scale(2) translate(20px, 20%);
-      //     // animation: tasRight 3.5s infinite linear;
-      //     transform: rotate(45deg) scale(2) translate(20px, 20%);
-      //     animation: tasRight 3.5s infinite linear;
-      //   }
-      // }
-
-
-
-      // width: 0px;
-      // height: 100%;
-      // font-size: 20px;
-      // border-left: 1px dashed #0dd0d2;
-      // // transform: rotate(45deg) scale(2);
-      // &.lightsBox1 {
-      //   left: 20%;
-      //   transform: rotate(45deg) scale(2) translate(2500%, 0%);
-      //   // background: orange;
-      //   z-index: 2;
-      //   background: red;
-      //   animation: lightsLeft 3.5s infinite linear;
-      // }
-      // &.lightsBox2 {
-      //   left: 80%;
-      //   transform: rotate(-45deg) scale(2) translate(-2500%, 0%);
-      //   // background: pink;
-      //   z-index: 3;
-      //   background: red;
-      // }
-      // &.lightsBox3 {
-      //   left: 20%;
-      //   transform: rotate(45deg) scale(2) translate(2500%, 0%);
-      //   // background: red;
-      //   z-index: 4;
-      //   background: red;
-      // }
-      // &.lightsBox4 {
-      //   left: 80%;
-      //   transform: rotate(-45deg) scale(2) translate(-2500%, 0%);
-      //   // background: blue;
-      //   z-index: 5;
-      //   background: red;
-      // }
     }
     
   }
@@ -212,11 +188,6 @@
     left: 10%;
     left: 20%;
     transform: rotate(45deg) scale(3);
-    // animation: translateLeft 3.5s infinite linear;
-    &.inner1R {
-      animation-name: translateLeftR;
-      animation-duration: 3.5s;
-    }
   }
   .inner2 {
     left: 400px;

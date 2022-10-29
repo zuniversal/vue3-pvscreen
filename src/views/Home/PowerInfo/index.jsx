@@ -11,6 +11,7 @@ import p22 from '@/static/img/home/center/22.png'
 import battery from '@/static/img/home/center/battery.png'
 import water from '@/static/img/home/center/water.png'
 import { createIndexArr } from '@/utils';
+import { Vue3SeamlessScroll } from "vue3-seamless-scroll";
 
 const configs1 = [
   {
@@ -117,9 +118,14 @@ const statusMap = {
   '22': p22,
 }
 
-const lightDots = <div className="lightDotWrapper ">{createIndexArr(50).map((v, i) => <div key={i} className="lightDot "></div>)}</div>
+const LightDots = ({noLightBg}) => <div className="lightDotWrapper ">{createIndexArr(10).map((v, i) => <div key={i} className={`${noLightBg ? 'noLightBg' : ''} lightDot`}></div>)}</div>
 const InfiniteLight = ({direction, noAnimate, data}) => {
-  return data == 0 ? lightDots : <marquee width="100%" scrolldelay="80" loop="infinite" direction={data == 1 ? 'left' : 'right'}>{lightDots}</marquee>  
+  const lightDots = <><marquee className="lightMarquee " width="100%" scrolldelay="0" scrollamount="5" loop="infinite" direction={data == 1 ? 'left' : 'right'}><LightDots noLightBg={data == 0} /></marquee>{data == 0 && <div className="dashLine"></div>}</>
+  return data == 0 ? lightDots : <Vue3SeamlessScroll delay="0"  singleWaitTime="0" list={createIndexArr(20)} class="lightMarquee"  direction={data == 1 ? 'left' : 'right'}>
+    {createIndexArr(20).map((v, i) => <div key={i} className={`${''} lightDot`}></div>)}
+  </Vue3SeamlessScroll>
+  return <><marquee className="lightMarquee " width="100%" scrolldelay="0" scrollamount="5" loop="infinite" direction={data == 1 ? 'left' : 'right'}><LightDots noLightBg={data == 0} /></marquee>{data == 0 && <div className="dashLine"></div>}</>
+  // return data == 0 ? lightDots : <><marquee className="lightMarquee " width="100%" scrolldelay="0" scrollamount="5" loop="infinite" direction={data == 1 ? 'left' : 'right'}>{lightDots}</marquee><div className="dashLine"></div></>
 }
 
 // 光伏 只有电压没有电流，说明不发电了，所以虚线就不动。(有电流就流向中间  光伏电流需要同时判断 pv1、pv2. 都为0就不动了，否则流向中心)
@@ -145,7 +151,7 @@ const PowerInfo = props => {
   const pvStatus = isPVZero ? 0 : 1
   const energyStatus = realStatus.ps.status
   const loadStatus = realStatus.ld.pe != 0 ? 2 : 0
-  const electricStatus = realStatus.gd.current == 0 ? 0 : (realStatus.gd.current > 0 ? 1 : 2)
+  const electricStatus = realStatus.gd.current == 0 ? 0 : (realStatus.gd.current > 0 ? 2 : 1)
 
   return (
     <div className="machineCircleWrapper ">

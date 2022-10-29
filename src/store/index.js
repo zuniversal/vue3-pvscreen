@@ -112,6 +112,7 @@ export default createStore({
       const c1 = { itemsTyle: { normal: { color: 'rgba(236, 78, 81)' } } };
       const c2 = { itemsTyle: { normal: { color: 'rgba(231, 178, 69)' } } };
       const c3 = { itemsTyle: { normal: { color: 'rgba(19, 208, 208)' } } };
+      const c4 = { itemsTyle: { normal: { color: '#a1ce63' } } };
       const epSum = toFixed(data.ep.valley + data.ep.usual + data.ep.peak)
       const feeSum = toFixed(data.fee.valley + data.fee.usual + data.fee.peak)
       const feeAvg = toFixed(feeSum / epSum)
@@ -122,11 +123,13 @@ export default createStore({
           { value: data.ep.valley, name: '谷时电量', ...c1 },
           { value: data.ep.usual, name: '平时电量', ...c2 },
           { value: data.ep.peak, name: '峰时电量', ...c3 },
+          { value: data.ep.tip, name: '尖时电量', ...c4 },
         ],
         fee: [
           { value: data.fee.valley, name: '谷时电费', ...c1 },
           { value: data.fee.usual, name: '平时电费', ...c2 },
           { value: data.fee.peak, name: '峰时电费', ...c3 },
+          { value: data.fee.tip, name: '尖时电费', ...c4 },
         ],
         epSum,
         feeSum,
