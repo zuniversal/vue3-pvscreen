@@ -39,6 +39,7 @@ const optionHandle = props => {
           color: '#fff',
           formatter: '{b}\n{c}' + props.unit,
           alignTo: 'labelLine',  
+          overflow: 'none',
         },
         data: [
           { value: 335, name: '谷时电量' },
