@@ -148,7 +148,7 @@ const PowerInfo = props => {
   const isLoadCls = realStatus.ld.pe != 0 ? '' : 'noAnimate'
   const isElectricCls = realStatus.gd.current > 0 ? '' : 'noAnimate'
 
-  const pvStatus = isPVZero ? 0 : 1
+  const pvStatus = isPVZero ? 0 : 2
   const energyStatus = realStatus.ps.status
   const loadStatus = realStatus.ld.pe != 0 ? 2 : 0
   const electricStatus = realStatus.gd.current == 0 ? 0 : (realStatus.gd.current > 0 ? 2 : 1)
