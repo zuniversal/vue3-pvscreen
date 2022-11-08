@@ -47,13 +47,13 @@ const props = defineProps({
 //   ...props.option,
 // }
 const option = computed(() => {
-  console.log(' computed props.option ： ', props.option,   )// 
+  // console.log(' computed props.option ： ', props.option,   )// 
   return {
     ...common,
     ...props.option,
   } 
 })
-console.log(' option ： ', option,  )// 
+// console.log(' option ： ', option,  )// 
 
 const chartRef = ref(null)
 onMounted(() => {

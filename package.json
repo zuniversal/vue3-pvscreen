@@ -20,6 +20,8 @@
     "less-loader": "^7.3.0",
     "moment": "^2.29.4",
     "moment-business": "^3.0.1",
+    "pinia": "^2.0.23",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "vue": "^3.0.0",
     "vue-echarts": "^6.2.3",
     "vue-i18n": "^9.1.7",

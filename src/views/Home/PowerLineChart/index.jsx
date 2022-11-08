@@ -245,7 +245,6 @@ const optionHandle = params => {
     powerlineParams,
     query,
   } = params;
-  console.log(' Home optionHandle ： ', params,   )// 
   return {
     grid: {
       top: '18%',

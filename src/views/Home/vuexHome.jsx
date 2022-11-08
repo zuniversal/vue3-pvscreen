@@ -19,7 +19,6 @@ import PowerInfo from './PowerInfo';
 import RealData from './RealData';
 import RealDataDesc from './RealDataDesc';
 import ElectricPie from './ElectricPie';
-import { homeStore } from "../../store/home";
 
 const state = defState
 const propsState = {
@@ -127,21 +126,18 @@ export default defineComponent({
   setup(props2, ctx) {
   // const props = state
   const store = useStore()
-  const homeStores = homeStore();
-  const props = homeStores
-  homeStores.saveNames("我是小猪");
-  console.log(' Home ： ', props, store.state, store.state.electricFee, store, props2, ctx, homeStores, homeStores.name); //
+  const props = store.state
+  console.log(' Home ： ', props, store.state, store.state.electricFee, store, props2, ctx, ); //
   const { isMobile, } = usePlatform()
   console.log(' isMobile ： ', isMobile, isShowRealData.value, isShowCom.value,  )// 
   const toggleShowRealData = () => {
     isShowRealData.value = !isShowRealData.value
   }
   const getPowerlineInfoAsync = (params) => {
-    // store.dispatch('getPowerlineInfoAsync', params);
-    homeStores.getPowerlineInfoAsync(params);
+    store.dispatch('getPowerlineInfoAsync', params);
   }
   const ajax = () => {
-    const req2 = (props) => {
+    const req = (props) => {
       store.dispatch('getRealDataAsync', );
       store.dispatch('getElectricFeeAsync', props.electricFeeParams);
       store.dispatch('getRealDataStatisticsAsync', );
@@ -153,18 +149,6 @@ export default defineComponent({
       store.dispatch('getRealStatusAsync', );
       store.dispatch('getCarbonAssetsAsync', );
     }
-    const req = (props) => {
-      homeStores.getRealDataAsync();
-      homeStores.getElectricFeeAsync(props.electricFeeParams);
-      homeStores.getRealDataStatisticsAsync();
-      homeStores.getTemperatureHumidityAsync();
-      homeStores.getStatisticsAsync();
-      homeStores.getPVStatisticsAsync();
-      homeStores.getEle7daysAsync();
-      homeStores.getGe30daysAsync();
-      homeStores.getRealStatusAsync();
-      homeStores.getCarbonAssetsAsync();
-    }
     setInterval(() => {
       req(props)
     // }, 300000)
@@ -172,7 +156,7 @@ export default defineComponent({
     setInterval(() => {
       const loopIndex = configs.findIndex(v => v.key === props.powerlineParams.query)
       const nextIndex = loopIndex < configs.length - 1 ? loopIndex + 1 : 0
-      // console.log('  loopIndex ： ', loopIndex, nextIndex, configs[nextIndex].key, )
+      console.log('  loopIndex ： ', loopIndex, nextIndex, configs[nextIndex].key, )
       getPowerlineInfoAsync({
         ...props.powerlineParams,
         query: configs[nextIndex].key,
@@ -182,11 +166,12 @@ export default defineComponent({
   }
   
   onMounted(() => {
-    // store.dispatch('getPowerlineInfoAsync', );
-    homeStores.getPowerlineInfoAsync();
+    console.log(' Home onMounted ： ',    )// 
+    store.dispatch('getPowerlineInfoAsync', );
     ajax()
     isShowCom.value = false
     setTimeout(() => {
+      console.log('  延时器 ： ',  )
       isShowCom.value = true
     }, 1000)
   })
