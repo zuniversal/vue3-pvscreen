@@ -8,6 +8,9 @@ import '../global.less';
 import ClusterMarker from './ClusterMarker';
 import MarkerIcon from './MarkerIcon';
 import MapTools from './MapTools';
+import LeftContent from './LeftContent';
+import SearchForm from './SearchForm/index.vue';
+import SystemTitle from '@/views/Home/SystemTitle';
 import {
   DispatchDataMap,
   RunStatusEnum,
@@ -70,6 +73,7 @@ export default defineComponent({
     console.log(' Screen       ： ', props,  )
     // const [ isLoad, setIsLoad ] = useState(false)
     const isLoad = ref(false);
+    const binds = ref('zyb');
     const setIsLoad = (val) => {
       console.log(' setIsLoad ： ',    )// 
       isLoad.value = val
@@ -309,7 +313,10 @@ export default defineComponent({
       initMarkerList()
     })
 
-    return () => <div className='mapBox amap-container' >
+    return () => <div className='mapBox amap-container urgentScreen' >
+      <SystemTitle className='urgentSystemTitle'></SystemTitle>
+      <LeftContent></LeftContent>
+      <SearchForm></SearchForm>
       <div className="leftBox">bbb
       
         <div className="cell2"></div>

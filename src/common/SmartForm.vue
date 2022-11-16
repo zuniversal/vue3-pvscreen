@@ -24,12 +24,12 @@
       </a-form-item>
 
       <a-form-item
-        name="select-multiple"
+        name="selectMultiple"
         label="Select[multiple]"
         :rules="[{ required: true, message: 'Please select your favourite colors!', type: 'array' }]"
       >
         <a-select
-          v-model:value="formState['select-multiple']"
+          v-model:value="formState['selectMultiple']"
           mode="multiple"
           placeholder="Please select favourite colors"
         >
@@ -130,7 +130,7 @@
       <a-form-item label="Dragger">
         <a-form-item name="dragger" no-style>
           <a-upload-dragger v-model:fileList="formState.dragger" name="files" action="/upload.do">
-            <p class="ant-upload-drag-icon">
+            <p class="ant-upload-drag-icon"> 
               <InboxOutlined />
             </p>
             <p class="ant-upload-text">Click or drag file to this area to upload</p>
@@ -165,6 +165,8 @@ export default defineComponent({
       'input-number': 3,
       'checkbox-group': ['A', 'B'],
       rate: 3.5,
+      select: 'china',
+      selectMultiple: ['red'],
     });
     const onFinish = (values) => {
       console.log('Success:', values);

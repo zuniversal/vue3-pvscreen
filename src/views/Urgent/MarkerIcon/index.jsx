@@ -9,7 +9,7 @@ export default function MarkerIcon(props) {
   console.log(' MarkerIcon ： ', props   )// 
   return (
     <div
-      className={`icon ${icon} ${selected ? 'selected' : ''} ${gray ? 'gray' : ''}`}
+      className={`icon icons ${icon} ${selected ? 'selected' : ''} ${gray ? 'gray' : ''}`}
     />
   );
 }

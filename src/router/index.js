@@ -7,6 +7,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 const Home = () => import(/* webpackChunkName: "Home" */ '../views/Home/index.jsx')
 const Urgent = () => import(/* webpackChunkName: "Urgent" */ '../views/Urgent/index.jsx')
 const Antd = () => import(/* webpackChunkName: "Antd" */ '../views/Antd')
+const AntdJsx = () => import(/* webpackChunkName: "AntdJsx" */ '../views/AntdJsx.jsx')
 
 const routes = [
   {
@@ -23,6 +24,11 @@ const routes = [
     path: '/antd',
     name: 'Antd',
     component: Antd, 
+  },
+  {
+    path: '/antdJsx',
+    name: 'AntdJsx',
+    component: AntdJsx, 
   },
   {
     path: '/about',
