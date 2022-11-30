@@ -1,7 +1,13 @@
 <template>
   <!-- <router-link to="/">home</router-link>
   <router-link to='/about'>about</router-link> -->
-  <router-view></router-view>
+  <a-config-provider locale="zhCN">
+    <router-view></router-view>
+  </a-config-provider>
+  <!-- <el-config-provider locale="zhCn">
+    <el-pagination :total="100" />
+    <router-view></router-view>
+  </el-config-provider> -->
 </template>
 
 <script>

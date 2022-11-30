@@ -20,14 +20,16 @@ export default defineComponent({
       wrapperCol: { span: 14 },
     };
     const {
+      test,
+      ref: formRef,
       config,
       formProps,
+      model,
       init,
       children,
       flexRow,
       formBtn,
       isRowBtn,
-      className,
       onSubmit,
       onFail,
       onFieldChange,
@@ -53,6 +55,11 @@ export default defineComponent({
       // select: 'china',
       // selectMultiple: ['red', 'green'],
 
+      customcom: "zyb",
+      info: "zyb",
+      company: ['业务员',],
+      formItemIn: 3,
+      radioGroup2: "b",
       checkboxGroup: ["E", "F"],
       inputNumber: 3,
       radioButton: "b",
@@ -63,6 +70,12 @@ export default defineComponent({
       slider: 36,
       switch: true,
     });
+
+    const getData = () => {
+      console.log(' getData   ,   ： ', formState,  )
+      return formState 
+    }
+
     // const formState = {
     //   'input-number': 3,
     //   'checkbox-group': ['A', 'B'],
@@ -73,16 +86,17 @@ export default defineComponent({
     const onFinish = (values) => {
       console.log('Success:', values, JSON.parse(JSON.stringify(values)) );
       vlog('Success:', values, JSON.parse(JSON.stringify(values)) );
-      fetch('/', {
-        method: 'post',
-        body: JSON.stringify(values),
-        body: values,
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }).then(function(data) {
+      test(values)
+      // fetch('/', {
+      //   method: 'post',
+      //   body: JSON.stringify(values),
+      //   body: values,
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   }
+      // }).then(function(data) {
     
-      })
+      // })
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -104,20 +118,32 @@ export default defineComponent({
     const formItems = configs.map((item, i) => {
       console.log(' isVNode(items) ： ', isVNode(item), item, isVNode, )//
       const isVNodeItem = isVNode(item)
-      if (isVNodeItem) {
+      const isCustomCom = item.formType === 'CustomCom'
+      if (isVNodeItem || isCustomCom) {
         const isFormItem = item.type?.name === "AFormItem"
         const isString = typeof item.type === "string"
-        console.log(' isFormItem ： ', isFormItem, item.type?.name, isString, typeof item.type)// 
+        console.log(' isFormItem ： ', isFormItem, item, item.type?.name, isString, typeof item.type)// 
         if (isFormItem) {
           return item 
         }
         if (isString) {
-          console.log(' 普通dom ： ',    )// 
+          console.log(' 普通dom ： ', item   )// 
           return <a-form-item
-            label=" "
+            label="  "
+            {...item.comProps}
             colon={false}
           >
             {item}
+          </a-form-item>
+        }
+        if (isCustomCom) {
+          console.log(' 普通 isCustomCom ： ', item   )// 
+          return <a-form-item
+            label="  "
+            {...item.itemProps}
+            colon={false}
+          >
+            {item.children}
           </a-form-item>
         }
       }
@@ -167,7 +193,7 @@ export default defineComponent({
 
       const { label } = itemProps;
       const itemPropsCls =
-        itemProps.className +
+        itemProps.class +
         `${i === configs.length - 1 ? ' lastFormItem' : ''}`;
 
       const formItemCommonProps = {
@@ -192,16 +218,16 @@ export default defineComponent({
 
       // if (formType === 'Dynamic') {
       //   console.log(' formTypeformType ： ', formItemCommonProps, formType, formType === 'Dynamic'    )//
-      //   formItemCommonProps.className = `dynamicRow ${formItemCommonProps.className}  `
+      //   formItemCommonProps.class = `dynamicRow ${formItemCommonProps.class}  `
       // }
 
       const formItemDividerProps = {
         ...formItemCommonProps,
-        className: `formItems w100 ${bounceIn} ${itemPropsCls}  `,
+        class: `formItems w100 ${bounceIn} ${itemPropsCls}  `,
       };
       const formItemNoRuleProps = {
         ...formItemCommonProps,
-        className: `formItems rowText ${bounceIn} ${itemPropsCls}  `,
+        class: `formItems rowText ${bounceIn} ${itemPropsCls}  `,
       };
       const formItemProps = {
         rules: formRules
@@ -210,7 +236,7 @@ export default defineComponent({
           ? undefined
           : rules({ items, label, ruleExtra }),
         ...formItemCommonProps,
-        className: `formItems ${bounceIn} ${itemPropsCls}  `,
+        class: `formItems ${bounceIn} ${itemPropsCls}  `,
       };
 
       const formLabel = customLabel ? customLabel : getLabel(label, formType);
@@ -220,7 +246,7 @@ export default defineComponent({
         noPh || action === 'detail' || isDisabledAll ? '' : formLabel;
       // conso
       if (searchSuffix) {
-        comProps.suffix = <SearchOutlined className="searchIcon" />;
+        comProps.suffix = <SearchOutlined class="searchIcon" />;
       }
       if (noLabel) {
         // console.log(' noLabel ： ');
@@ -230,15 +256,16 @@ export default defineComponent({
       }
 
       const realComProps = {
-        // className: 'w-320',
-        ...comProps,
+        // class: 'w-320',
         placeholder: placeholder,
+        ...comProps,
+        vModel: [model['formItemIn'], 'value'],
       };
 
       const dynamicComProps = {
-        // className: 'w-320',
+        // class: 'w-320',
         ...comProps,
-        // comProps: {...comProps, className: `${comProps.className} dynamiRow` },
+        // comProps: {...comProps, class: `${comProps.class} dynamiRow` },
         isDisabledAll,
         placeholder: placeholder,
         name: formItemProps.key,
@@ -297,7 +324,7 @@ export default defineComponent({
         Label: LabelCom,
         CustomCom: CustomCom,
         PlainText: (
-          <span className={`plainText`} {...comProps}>
+          <span class={`plainText`} {...comProps}>
             {plainText}
           </span>
         ),
@@ -312,7 +339,7 @@ export default defineComponent({
             {...realComProps}
           />
         ),
-        InputNumber: <InputNumber allowClear maxLength={32} {...realComProps} />,
+        InputNumber: <a-input-number allowClear maxLength={32} {...realComProps} />,
         TextArea: (
           <a-textarea
             autoSize={{
@@ -340,6 +367,7 @@ export default defineComponent({
         DatePicker: <a-date-picker {...realComProps} picker="month" />,
         RangePicker: (
           <a-range-picker
+          
             format={'YYYY/MM/DD'}
             ranges={{
               今天: [moment(), moment()],
@@ -361,13 +389,13 @@ export default defineComponent({
       };
 
       const formItemCom = formItemMap[formType]; 
-      return <a-form-item name={`x${Math.random()}`} rules={[{ required: true, message: 'Please pick an item!' }]} label="Radio.Group">
-        <a-radio-group >
-          <a-radio value="a">item 1</a-radio>
-          <a-radio value="b">item 2</a-radio>
-          <a-radio value="c">item 3</a-radio>
-        </a-radio-group>
-      </a-form-item>
+      // return <a-form-item name={`x${Math.random()}`} rules={[{ required: true, message: 'Please pick an item!' }]} label="Radio.Group">
+      //   <a-radio-group >
+      //     <a-radio value="a">item 1</a-radio>
+      //     <a-radio value="b">item 2</a-radio>
+      //     <a-radio value="c">item 3</a-radio>
+      //   </a-radio-group>
+      // </a-form-item>
       return <a-form-item
         {...formItemProps}
       >
@@ -377,10 +405,12 @@ export default defineComponent({
 
     console.log(' formItems ： ', formItems,  )// 
     return () => {
-      // return <div className=''>AntdJsx</div>
+      // return <div class=''>AntdJsx</div>
       // v-bind={formItemLayout} 注意 如果使用了不支持存在的指令会导致报错  Uncaught (in promise) TypeError: Cannot read property 'deep' of undefined
       return <a-form
         model={formState}
+        model={model}
+        ref={formRef}
         name={'smartForm'}
         {...formItemLayout}
         onFinishFailed={onFinishFailed}
@@ -398,7 +428,7 @@ export default defineComponent({
           has-feedback
           rules={[{ required: true, message: 'Please select your country!' }]}
         >
-          <a-select v-model={[formState.select, 'value']} v-model={formState.select} placeholder="Please select a country">
+          <a-select v-model={[formState.select, 'value']} v-model={model.select} placeholder="Please select a country">
             <a-select-option value="china">China</a-select-option>
             <a-select-option value="usa">U.S.A</a-select-option>
           </a-select>
@@ -410,7 +440,7 @@ export default defineComponent({
           rules={[{ required: true, message: 'Please select your favourite colors!', type: 'array' }]}
         >
           <a-select
-            v-model={[formState['selectMultiple'], 'value']}
+            v-model={[model['selectMultiple'], 'value']}
             mode="multiple"
             placeholder="Please select favourite colors"
           >
@@ -422,18 +452,18 @@ export default defineComponent({
 
         <a-form-item label="InputNumber">
           <a-form-item name="inputNumber" no-style>
-            <a-input-number v-model={[formState['inputNumber'], 'value']} min="1" max="10" />
+            <a-input-number v-model={[model['inputNumber'], 'value']} min="1" max="10" />
           </a-form-item>
           <span class="ant-form-text">machines</span>
         </a-form-item>
 
         <a-form-item name="switch" label="Switch">
-          <a-switch v-model={[formState['switch'], 'checked']} />
+          <a-switch v-model={[model['switch'], 'checked']} />
         </a-form-item>
 
         <a-form-item name="slider" label="Slider">
           <a-slider
-            v-model={[formState['slider'], 'value']}
+            v-model={[model['slider'], 'value']}
             marks={{
               0: 'A',
               20: 'B',
@@ -446,7 +476,7 @@ export default defineComponent({
         </a-form-item>
 
         <a-form-item name="radioGroup" label="Radio.Group">
-          <a-radio-group v-model={[formState['radioGroup'], 'value']}>
+          <a-radio-group v-model={[model['radioGroup'], 'value']}>
             <a-radio value="a">item 1</a-radio>
             <a-radio value="b">item 2</a-radio>
             <a-radio value="c">item 3</a-radio>
@@ -458,7 +488,7 @@ export default defineComponent({
           label="Radio.Button"
           rules={[{ required: true, message: 'Please pick an item!' }]}
         >
-          <a-radio-group v-model={[formState['radioButton'], 'value']}>
+          <a-radio-group v-model={[model['radioButton'], 'value']}>
             <a-radio-button value="a">item 1</a-radio-button>
             <a-radio-button value="b">item 2</a-radio-button>
             <a-radio-button value="c">item 3</a-radio-button>
@@ -466,7 +496,7 @@ export default defineComponent({
         </a-form-item>
 
         <a-form-item name="checkboxGroup" label="Checkbox.Group">
-          <a-checkbox-group v-model={[formState['checkboxGroup'], 'value']}>
+          <a-checkbox-group v-model={[model['checkboxGroup'], 'value']}>
             <a-row>
               <a-col span="8">
                 <a-checkbox value="A" style="line-height: 32px">A</a-checkbox>
@@ -491,12 +521,12 @@ export default defineComponent({
         </a-form-item>
 
         <a-form-item name="rate" label="Rate">
-          <a-rate v-model={[formState['rate'], 'value']} allow-half />
+          <a-rate v-model={[model['rate'], 'value']} allow-half />
         </a-form-item>
 
-        <a-form-item name="upload" label="Upload" extra="longgggggggggggggggggggggggggggggggggg">
+        {/* <a-form-item name="upload" label="Upload" extra="longgggggggggggggggggggggggggggggggggg">
           <a-upload
-            v-model={[formState['upload'], 'fileList']}
+            v-model={[model['upload'], 'fileList']}
             name="logo"
             action="/upload.do"
             list-type="picture"
@@ -510,7 +540,7 @@ export default defineComponent({
 
         <a-form-item label="Dragger">
           <a-form-item name="dragger" no-style>
-            <a-upload-dragger v-model={[formState['dragger'], 'fileList']} name="files" action="/upload.do">
+            <a-upload-dragger v-model={[model['dragger'], 'fileList']} name="files" action="/upload.do">
               <p class="ant-upload-drag-icon"> 
                 <InboxOutlined />
               </p>
@@ -519,7 +549,7 @@ export default defineComponent({
             </a-upload-dragger>
           </a-form-item>
         </a-form-item>
-
+ */}
 
         <a-form-item wrapper-col={{ span: 12, offset: 6 }}>
           <a-button type="primary" htmlType="submit" html-type="submit">Submit</a-button>

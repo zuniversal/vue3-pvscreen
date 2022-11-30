@@ -27,7 +27,7 @@ const configs = [
     src: require('@/static/img/home/left/storedEnergy.png'),
     val: '552',
     key: 'ps',
-    topUnit: 'kW',
+    topUnit: 'kWh',
     topDataKey: 'power',
     totalKey: 'capacity',
     color: ['#FC7154'],

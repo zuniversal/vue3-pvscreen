@@ -19,9 +19,14 @@ import PowerInfo from '@/views/Home/PowerInfo';
 import RealData from '@/views/Home/RealData';
 import RealDataDesc from '@/views/Home/RealDataDesc';
 import ElectricPie from '@/views/Home/ElectricPie';
+import SearchForm from '../SearchForm/index.vue';
 import { urgentStore } from "@/store/urgent";
 
 const propsState = {
+  mapInstance: {
+    type: Object,
+    default: {},
+  },
   statistics: {
     type: Object,
     default: {
@@ -65,10 +70,7 @@ const LeftContent = defineComponent({
     const store = useStore()
     const urgentStores = urgentStore();
     const props = urgentStores
-    urgentStores.saveNames("我是小猪");
-    console.log(' Home ： ', props, store.state, store.state.electricFee, store, props2, ctx, urgentStores, urgentStores.name); //
-    const { isMobile, } = usePlatform()
-    console.log(' isMobile ： ', isMobile, isShowRealData.value, isShowCom.value,  )// 
+    // console.log(' Home ： ', props, store.state, store.state.electricFee, store, props2, ctx, urgentStores, urgentStores.name); //
     const ajax = () => {
       const req = (props) => {
         urgentStores.getStatisticsAsync();
@@ -90,13 +92,23 @@ const LeftContent = defineComponent({
       }, 1000)
     })
 
+    const activeKey = ref(['1']);
+    const onCollapseChange = (value, aa) => {
+      console.log(' onCollapseChange ： ', value, aa,   )// 
+      activeKey.value = value
+    }
+
     return () => (
-      <div className={`leftContent `}>
-        <EnergyCalc statistics={props.statistics}></EnergyCalc>
-        <PowerInstallLiquid powerInstallInfo={props.powerInstallInfo}></PowerInstallLiquid>
-        <HistoryElecCalc historyElecCalc={props.historyElecCalc}></HistoryElecCalc>
-        <IncomeTrendChart incomeTrendInfo={props.incomeTrendInfo}></IncomeTrendChart>
-      </div>
+      <a-collapse className={`leftContentCollapse `} ghost activeKey={activeKey.value} onChange={onCollapseChange}>
+        <a-collapse-panel key="1" header={<SearchForm mapInstance={props.mapInstance}></SearchForm>}>
+          <div className={`leftContent `}>
+            <EnergyCalc statistics={props.statistics}></EnergyCalc>
+            <PowerInstallLiquid powerInstallInfo={props.powerInstallInfo}></PowerInstallLiquid>
+            <HistoryElecCalc historyElecCalc={props.historyElecCalc}></HistoryElecCalc>
+            <IncomeTrendChart incomeTrendInfo={props.incomeTrendInfo}></IncomeTrendChart>
+          </div>
+        </a-collapse-panel>
+      </a-collapse>
     );
   }
 });

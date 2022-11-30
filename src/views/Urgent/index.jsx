@@ -11,6 +11,7 @@ import MapTools from './MapTools';
 import LeftContent from './LeftContent';
 import SearchForm from './SearchForm/index.vue';
 import SystemTitle from '@/views/Home/SystemTitle';
+import InfoWindow from './InfoWindow';
 import {
   DispatchDataMap,
   RunStatusEnum,
@@ -19,8 +20,10 @@ import {
   PeopleStatusEnum,
   VehicleStatusEnum,
 } from './constants';
+import { req } from '@/utils/request';
+import { urgentStore } from "../../store/urgent";
 
-let mapInstance
+export let mapInstance
 let markerCluster
 let tableInfoWindow
 let popInfoWindow
@@ -32,36 +35,36 @@ const defaultProps = {
   dataList: {
     type: Array,
     default:  [
-      {
-        position: [121.737959, 31.150690,],
-        title: '庄宇彬家',
-        type: 'customer',
-      },
-      {
-        position: [120.737959, 30.150690],
-        title: '庄宇彬家',
-        type: 'customer',
-      },
-      {
-        position: [121.71, 31.150690,],
-        title: '庄宇彬家',
-        type: 'customer',
-      },
-      {
-        position: [121.75, 31.150690,],
-        title: '庄宇彬家',
-        type: 'customer',
-      },
-      {
-        position: [121.78, 31.150690,],
-        title: '庄宇彬家',
-        type: 'customer',
-      },
-      {
-        position: [121.79, 31.150690,],
-        title: '庄宇彬家',
-        type: 'customer',
-      },
+      // {
+      //   position: [121.737959, 31.150690,],
+      //   title: '庄宇彬家',
+      //   type: 'customer',
+      // },
+      // {
+      //   position: [120.737959, 30.150690],
+      //   title: '庄宇彬家',
+      //   type: 'customer',
+      // },
+      // {
+      //   position: [121.71, 31.150690,],
+      //   title: '庄宇彬家',
+      //   type: 'customer',
+      // },
+      // {
+      //   position: [121.75, 31.150690,],
+      //   title: '庄宇彬家',
+      //   type: 'customer',
+      // },
+      // {
+      //   position: [121.78, 31.150690,],
+      //   title: '庄宇彬家',
+      //   type: 'customer',
+      // },
+      // {
+      //   position: [121.79, 31.150690,],
+      //   title: '庄宇彬家',
+      //   type: 'customer',
+      // },
     ],  
   },
 };
@@ -69,8 +72,15 @@ let indexes = 0
 
 export default defineComponent({
   props: defaultProps,
-  setup(props, ctx) {
-    console.log(' Screen       ： ', props,  )
+  setup(props2, ctx) {
+    console.log(' Screen       ： ', props2,  )
+    const urgentStores = urgentStore();
+    const props = urgentStores;
+    console.log(' urgentStores ： ', urgentStores, props, props.dataList, props.dataList2 )// 
+    onMounted(() => {
+      // urgentStores.getDataListAsync();
+    })
+
     // const [ isLoad, setIsLoad ] = useState(false)
     const isLoad = ref(false);
     const binds = ref('zyb');
@@ -78,7 +88,15 @@ export default defineComponent({
       console.log(' setIsLoad ： ',    )// 
       isLoad.value = val
     };
-      
+    
+    /**
+     * 移动到指定位置
+     */
+    const moveToPosition = (position = []) => {
+      mapInstance.setZoomAndCenter(18, position);
+    };
+
+
     const createMap = () => {
       // if (this.mapInstance) {
       //   return this.mapInstance;
@@ -91,15 +109,16 @@ export default defineComponent({
       // console.log(' mapNode ： ', mapNode,  )// 
       const mapNode = document.getElementsByClassName('mapBox')[0]
       mapInstance = new AMap.Map(mapNode, {
-        // zoom: this.defaultZoom,
+        zoom: defaultZoom,
         // zooms: [this.defaultZoom, 20],
         // center: this.defaultCenter,
         resizeEnable: true,
         pitch: 45, // 地图俯仰角度，有效范围 0 度- 83 度
-        rotation: 15,
+        // rotation: 15,
         viewMode: '3D',
         mapStyle: 'amap://styles/852b41ec43aca7f9234571b282140fd2',
       });
+      props.saveMapInstance(mapInstance)
       mapInstance.on('click', () => {
         // this.clear();
       });
@@ -121,7 +140,7 @@ export default defineComponent({
       // app.mount(`#${className}`)
       // // app.mount(`#mount`)
       // console.log(' app ： ', app, dom )// 
-      console.log(' dom ： ', dom,  )// 
+      // console.log(' dom ： ', dom,  )// 
       return dom;
     };
     const createInfoWindow = (content, offset = new AMap.Pixel(16, -45)) => {
@@ -153,7 +172,7 @@ export default defineComponent({
       tableInfoWindow.open(mapInstance, position);
     };
     const renderClusterMarker = ({ count, marker, markers }) => {
-      console.log(' initMarkerCluster 2： ', count, marker, markers    )// 
+      // console.log(' initMarkerCluster 2： ', count, marker, markers    )// 
       const infoMarkers = markers.map(item => item.getExtData());
       const content = renderDom(
         <ClusterMarker
@@ -220,8 +239,11 @@ export default defineComponent({
       let offset = new AMap.Pixel(30, 100);
       let anchor = 'bottom-left'
       content = renderDom(
-        <div className="renderPopInfoWindow" style={{'background': 'red'}} >renderPopInfoWindow
-          <div className="wave-ball"></div>
+        // <div className="renderPopInfoWindow"  >
+        //   <div className="wave-ball"></div>
+        // </div>,
+        <div className="renderPopInfoWindow"  >
+          <InfoWindow></InfoWindow>
         </div>,
       );
       if (!popInfoWindow) {
@@ -244,7 +266,7 @@ export default defineComponent({
     const createMarkers = data => {
       return data.map(item => {
         const content = renderDetailMarker(item);
-        console.log(' content ： ', content,  )// 
+        // console.log(' content ： ', content,  )// 
         const marker = new AMap.Marker({
           position: item.position,
           anchor: 'center',
@@ -305,7 +327,7 @@ export default defineComponent({
         );
       });
     };
-    console.log(' onMountedonMounted1 ： ',    )// 
+    console.log(' onMountedonMounted1 ： ', props,   )// 
     onMounted(() => {
       console.log(' onMountedonMounted ： ',    )// 
       createMap()
@@ -315,20 +337,20 @@ export default defineComponent({
 
     return () => <div className='mapBox amap-container urgentScreen' >
       <SystemTitle className='urgentSystemTitle'></SystemTitle>
-      <LeftContent></LeftContent>
-      <SearchForm></SearchForm>
-      <div className="leftBox">bbb
-      
-        <div className="cell2"></div>
-        <div className="cell2 active"></div>
-      </div>
+      <LeftContent mapInstance={mapInstance}></LeftContent>
+      {/* <SearchForm></SearchForm> */}
       <MapTools
         scale={1}
         isNormal
         handleScale={() => mapInstance.setZoomAndCenter(defaultZoom, defaultCenter)}
         handleLocation={() => mapInstance.setZoomAndCenter(10, [121.555941, 31.178316])}
       />
+      {/* <div className="leftBox">bbb
+        <div className="cell2"></div>
+        <div className="cell2 active"></div>
+      </div> */}
       <div id="mount"></div>
+      <div className="bgPic"></div>
     </div> 
   }
 });

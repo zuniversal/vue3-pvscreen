@@ -6,6 +6,10 @@ function resolve(dir) {
 }
 module.exports = {
   publicPath: './',
+  transpileDependencies: ['webpack-dev-server/client'],
+  chainWebpack: config => {
+   config.entry.app = ['babel-polyfill', './src/main.js'];
+  },
   chainWebpack(config) {
     config.module
       .rule('svg')
@@ -46,19 +50,20 @@ module.exports = {
     },
   },
   // configureWebpack: {
-  //   optimization: {
-  //     minimizer: [
-  //       new UglifyJsPlugin({
-  //         uglifyOptions: {
-  //           compress: {
-  //             warnings: false,
-  //             drop_console: true,//console
-  //             drop_debugger: false,
-  //             pure_funcs: ['console.log'] // 移除console
-  //           }
+  //   // 代码压缩
+  //   plugins: [
+  //     new UglifyJsPlugin({
+  //       uglifyOptions: {
+  //         //生产环境自动删除console
+  //         compress: {
+  //           drop_debugger: true,
+  //           drop_console: true,
+  //           pure_funcs: ['console.log']
   //         }
-  //       })
-  //     ]
-  //   }
-  // }
+  //       },
+  //       sourceMap: false,
+  //       parallel: true
+  //     })
+  //   ]
+  // },
 }

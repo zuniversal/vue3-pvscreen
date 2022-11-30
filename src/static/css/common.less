@@ -272,3 +272,37 @@ body {
     margin-left: 30px;
   }
 }
+
+.colorIntroWrapper {
+  display: flex;
+  justify-content: space-evenly;
+  color: #fff;
+  font-size: 1.8vh;
+  .colorIntroItem {
+    transform: scale(0.9);
+    &.introBlue {
+      &::before {
+        border: 2px solid #0dd0d2;
+      }
+    }
+    &.introGreen {
+      &::before {
+        border: 2px solid #0ceba3;
+      }
+    }
+    &.introOrange {
+      &::before {
+        border: 2px solid #fc7154;
+      }
+    }
+    &::before {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      margin-right: 5px;
+      border: 2px solid #0dd0d2;
+      border-radius: 50%;
+      content: ' ';
+    }
+  }
+}

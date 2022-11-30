@@ -1,5 +1,5 @@
 // import React, { useState, useEffect } from 'react';
-import { ref, onMounted, defineComponent, } from 'vue';
+import { ref, onMounted, defineComponent, onBeforeUnmount } from 'vue';
 import { useStore,  } from 'vuex'// 
 import { defState,  } from '@/store/index';
 import '@/static/css/index.less';
@@ -21,6 +21,9 @@ import RealDataDesc from './RealDataDesc';
 import ElectricPie from './ElectricPie';
 import { homeStore } from "../../store/home";
 
+let reqTimer = null
+let reqPowerlineTimer = null
+let interTimer = null
 const state = defState
 const propsState = {
   realData: {
@@ -165,11 +168,11 @@ export default defineComponent({
       homeStores.getRealStatusAsync();
       homeStores.getCarbonAssetsAsync();
     }
-    setInterval(() => {
+    reqTimer = setInterval(() => {
       req(props)
     // }, 300000)
     }, 10000)
-    setInterval(() => {
+    reqPowerlineTimer = setInterval(() => {
       const loopIndex = configs.findIndex(v => v.key === props.powerlineParams.query)
       const nextIndex = loopIndex < configs.length - 1 ? loopIndex + 1 : 0
       // console.log('  loopIndex ： ', loopIndex, nextIndex, configs[nextIndex].key, )
@@ -186,9 +189,16 @@ export default defineComponent({
     homeStores.getPowerlineInfoAsync();
     ajax()
     isShowCom.value = false
-    setTimeout(() => {
+    interTimer = setTimeout(() => {
       isShowCom.value = true
+      clearTimeout(interTimer)
     }, 1000)
+  })
+
+  onBeforeUnmount(() => {
+    console.log(' onBeforeUnmount ： ', reqTimer, reqPowerlineTimer,   )// 
+    clearInterval(reqTimer)
+    clearInterval(reqPowerlineTimer)
   })
 
   const leftCom = () => <div className="left">

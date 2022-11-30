@@ -19,19 +19,19 @@ const usePlatform = (config = {}) => {
   const isMobileListener = (cb) => {
     let userAgent = navigator.userAgent.toLowerCase();
     console.log(' isMobile isMobileListener ： ', userAgent,   )// 
-    // if (
-    //   /ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(
-    //     userAgent,
-    //   )
-    // ) {
-    //   console.log('前端是移动端');
-    //   setIsMobile('mobile');
-    //   mobileCb()
-    // } else {
-    //   console.log('前端是pc端');
-    //   setIsMobile('');
-    // }
-    setIsMobile('');
+    if (
+      /ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(
+        userAgent,
+      )
+    ) {
+      console.log('前端是移动端');
+      setIsMobile('mobile');
+      mobileCb()
+    } else {
+      console.log('前端是pc端');
+      setIsMobile('');
+    }
+    // setIsMobile('');
   }
 
   isMobileListener()

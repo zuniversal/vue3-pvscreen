@@ -1,12 +1,33 @@
-.leftContent {
-  z-index: 1;
+.leftContentCollapse, .ant-collapse{
+  z-index: 100;
   position: fixed;
   left: 0;
   width: 380px;
   height: 100%;
+  .ant-collapse-header{
+    padding: 0 16px!important;
+  }
+  .ant-collapse-arrow{
+    color: #fff; 
+    margin-top: 15px;
+  }
+  
+}
+.leftContent {
+  z-index: 1;
+  position: fixed;
+  padding: 8px;
+  padding-bottom: 40px;
+  border-radius: 6px;
+  // left: 0;
+  width: 380px;
+  width: 440px;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  background: rgba(49,211,213,.2);
+  // background: rgba(49,211,213,.2);
+  background-image: url("../../../resource//images/screen/left_center_bg_img.png");
+  color: white;
   .energyCalc{
     flex: 1;
     height: initial;
