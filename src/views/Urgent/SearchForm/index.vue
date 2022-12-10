@@ -59,10 +59,12 @@ export default defineComponent({
     /**
      * 移动到指定位置
      */
-    const moveToPosition = (position = []) => {
-      const { mapInstance} = urgentStore();
-      console.log(' xxxxxxxxx  mapInstance     ： ', mapInstance, urgentStores.mapInstance, urgentStores.value, )
-      mapInstance.setZoomAndCenter(18, position);
+    const moveToPosition = (item = []) => {
+      const { mapInstance, mapObj, } = urgentStore();
+      console.log(' xxxxxxxxx  mapInstance     ： ', mapInstance, urgentStores.mapInstance, urgentStores, )
+      mapObj.clear();
+      mapInstance.setZoomAndCenter(18, item.position);
+      mapObj.renderPopInfoWindow(item);
     };
 
     const options = ref([
@@ -72,7 +74,7 @@ export default defineComponent({
     ]);
     const handleChange = (value, item) => {
       console.log(`selected ${value}`, item, item.position, item.position[0]);
-      moveToPosition(item.position)
+      moveToPosition(item)
     };
     const handleBlur = () => {
       console.log('blur');

@@ -28,7 +28,7 @@ let markerCluster
 let tableInfoWindow
 let popInfoWindow
 let markerList = []
-let defaultZoom = 5;
+let defaultZoom = 5.5;
 let defaultCenter = [105.397428, 34.3];
 
 const defaultProps = {
@@ -118,9 +118,10 @@ export default defineComponent({
         viewMode: '3D',
         mapStyle: 'amap://styles/852b41ec43aca7f9234571b282140fd2',
       });
-      props.saveMapInstance(mapInstance)
+      props.setMapInstance(mapInstance)
       mapInstance.on('click', () => {
-        // this.clear();
+        console.log(' 点击了 ： ',    )// 
+        clear();
       });
       // this.setState({
       //   inited: true,
@@ -257,6 +258,11 @@ export default defineComponent({
       }, 100);
     };
 
+    // 点击标记点居中定位
+    const forcusMarker = marker => {
+      marker.setTop(false);
+      mapInstance.setCenter(marker.getPosition());
+    };
     const onClickMarker = record => {
       renderPopInfoWindow(record);
     };
@@ -275,7 +281,7 @@ export default defineComponent({
         });
 
         marker.on('click', () => {
-          // forcusMarker(marker);
+          forcusMarker(marker);
           onClickMarker(item);
         });
         return marker;
@@ -333,6 +339,13 @@ export default defineComponent({
       createMap()
       initMapUI()
       initMarkerList()
+    })
+    onMounted(() => {
+      console.log(' onMountedonMounted ： ',    )// 
+      props.setMapObj({
+        renderPopInfoWindow,
+        clear,
+      })
     })
 
     return () => <div className='mapBox amap-container urgentScreen' >

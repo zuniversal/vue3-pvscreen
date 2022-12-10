@@ -355,7 +355,7 @@ export default defineComponent({
               <el-input />
             </el-autocomplete>
           ),
-          TreeSelect: <el-tree-select {...realComProps} vModel={[formState[itemProps.name], 'value']}></el-tree-select>,
+          TreeSelect: <el-tree-select {...realComProps} vModel={formState[itemProps.name]}></el-tree-select>,
           ...registerComp({formState}),
         };
         console.log(' realComProps, formItemProps ： ', realComProps, formItemProps,  )// 

@@ -38,6 +38,7 @@ const dataList = [
 
 const defState = {
   mapInstance: {},
+  mapObj: {},
   dataList: [],  
   dataList: dataJson.default.data.list.map((v) => ({
     position: [v[3], v[4]],
@@ -75,9 +76,13 @@ export const urgentStore = defineStore('urgent', {
       console.log(' saveNames ： ', this, this.name,   )// 
       this.name = name;
     },
-    saveMapInstance(mapInstance) {
-      console.log(' saveMapInstance ： ', this.mapInstance, mapInstance,   )// 
+    setMapInstance(mapInstance) {
+      console.log(' setMapInstance ： ', this.mapInstance, mapInstance,   )// 
       this.mapInstance = mapInstance;
+    },
+    setMapObj(mapObj) {
+      console.log(' setmapObj ： ', this.mapObj, mapObj,   )// 
+      this.mapObj = mapObj;
     },
     async getDataListAsync(payload) {
       const data = await fetch(`/data.json`).then(res => res.json())
