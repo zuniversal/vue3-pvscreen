@@ -9,7 +9,7 @@ module.exports = {
 	transpileDependencies: ['webpack-dev-server/client'],
 	chainWebpack: (config) => {
 		//  config.entry.app = ['babel-polyfill', './src/main.js'];
-		config.entry.app = ['core-js', './src/main.js'];
+		// config.entry.app = ['core-js', './src/main.js'];
 	},
 	chainWebpack(config) {
 		config.module.rule('svg').exclude.add(resolve('src/icons')).end();
