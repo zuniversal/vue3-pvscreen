@@ -18,7 +18,7 @@ import EnvInfo from '@/views/Home/EnvInfo';
 import PowerInfo from '@/views/Home/PowerInfo';
 import RealData from '@/views/Home/RealData';
 import RealDataDesc from '@/views/Home/RealDataDesc';
-import ElectricPie from '@/views/Home/ElectricPie';
+import ElectricPie from '../ElectricPie';
 import SearchForm from '../SearchForm/index.vue';
 import AlarmSeamlessScroll from '../components/AlarmSeamlessScroll';
 import { urgentStore } from '@/store/urgent';

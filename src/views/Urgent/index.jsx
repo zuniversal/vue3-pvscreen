@@ -21,6 +21,7 @@ import {
 } from './constants';
 import { req } from '@/utils/request';
 import { urgentStore } from '../../store/urgent';
+import DetailPopover from './components/DetailPopover';
 
 export let mapInstance;
 let markerCluster;
@@ -250,7 +251,8 @@ export default defineComponent({
 				//   <div className="wave-ball"></div>
 				// </div>,
 				<div className='renderPopInfoWindow'>
-					<InfoWindow></InfoWindow>
+					{/* <InfoWindow></InfoWindow> */}
+					<DetailPopover></DetailPopover>
 				</div>
 			);
 			if (!popInfoWindow) {
@@ -365,11 +367,16 @@ export default defineComponent({
 
 		return () => (
 			<div className='mapBox amap-container urgentScreen'>
-				{/* <SystemTitle className='urgentSystemTitle'></SystemTitle>
+				<div className='headerPic'></div>
+				{/* <DetailPopover></DetailPopover> */}
+				<SystemTitle
+					className='urgentSystemTitle'
+					title={'中宇清能 安钒达楼宇数字应急储能系统'}
+				></SystemTitle>
 				<LeftContent
 					mapInstance={mapInstance}
 					setZoomAndCenter={setZoomAndCenter}
-				></LeftContent> */}
+				></LeftContent>
 				<RightContent></RightContent>
 				<SearchForm></SearchForm>
 				<MapTools
@@ -382,12 +389,12 @@ export default defineComponent({
 						mapInstance.setZoomAndCenter(10, [121.555941, 31.178316])
 					}
 				/>
+				<div className='bgPic'></div>
 				{/* <div className="leftBox">bbb
         <div className="cell2"></div>
         <div className="cell2 active"></div>
       </div> */}
 				<div id='mount'></div>
-				<div className='bgPic'></div>
 			</div>
 		);
 	},
