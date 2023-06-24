@@ -14,7 +14,9 @@
 				@blur="handleBlur"
 				@change="handleChange"
 			>
-				<template #suffixIcon><img :src="searchIcon" /></template>
+				<template #suffixIcon
+					><img class="imgIcon" :src="searchIcon"
+				/></template>
 				<!-- <template #suffixIcon><search-outlined class="ant-select-suffix" /></template> -->
 				<!-- <template #suffixIcon><MehOutlined class="ant-select-suffix" /></template> -->
 			</a-select>
@@ -31,7 +33,8 @@
 				@blur="handleBlur"
 				@change="handleChange"
 			>
-				<template #suffixIcon><img :src="searchIcon" /></template
+				<template #suffixIcon
+					><img class="imgIcon" :src="dropdownIcon" /></template
 			></a-select>
 			<!-- <div class="divider" /> --> </a-input-group
 		><smile-outlined class="ant-select-suffix" />
@@ -48,7 +51,8 @@ import {
 } from '@ant-design/icons-vue';
 import { urgentStore } from '@/store/urgent';
 import { mapInstance } from '../index.jsx';
-import searchIcon from '@/static/img/urgent/battery.png';
+import searchIcon from '@/static/img/urgent/search.png';
+import dropdownIcon from '@/static/img/urgent/dropdown.png';
 
 export default defineComponent({
 	props: {
@@ -120,6 +124,7 @@ export default defineComponent({
 			options,
 			dataList: dataLists,
 			searchIcon,
+			dropdownIcon,
 		};
 	},
 });
@@ -188,6 +193,9 @@ export default defineComponent({
 			width: 2px;
 			background: rgba(49, 212, 213, 0.5);
 		}
+	}
+	.imgIcon {
+		margin-top: -6px;
 	}
 }
 </style>
