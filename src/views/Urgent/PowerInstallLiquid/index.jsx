@@ -63,7 +63,7 @@ const PowerInstallLiquid = (props) => {
 						</div>
 					</div>
 					{/* <div className="chartVal">{item.val}</div> */}
-					<div className='chartVal'>
+					<div className='chartVal primaryVal'>
 						{props.powerInstallInfo[item.key][item.totalKey] || 0}
 					</div>
 					<PowerLiquid

@@ -50,9 +50,9 @@ const config3 = [
 	},
 ];
 
-const EnvInfo = (props) => {
+const DetailEnvInfo = (props) => {
 	return (
-		<div className='envInfo '>
+		<div className='detailEnvInfo '>
 			{props.config.map((v, i) => (
 				<div className='envInfoItem' key={i}>
 					<div className='envInfoIconWrapper'>
@@ -104,7 +104,7 @@ const DetailPopover = (props) => {
 			</div>
 			<div className='divider'></div>
 			<div className='detailPopoverCol'>
-				<EnvInfo config={config3} data={data}></EnvInfo>
+				<DetailEnvInfo config={config3} data={data}></DetailEnvInfo>
 			</div>
 		</div>
 	);

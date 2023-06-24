@@ -14,6 +14,7 @@
 				@blur="handleBlur"
 				@change="handleChange"
 			>
+				<template #suffixIcon><img :src="searchIcon" /></template>
 				<!-- <template #suffixIcon><search-outlined class="ant-select-suffix" /></template> -->
 				<!-- <template #suffixIcon><MehOutlined class="ant-select-suffix" /></template> -->
 			</a-select>
@@ -29,9 +30,11 @@
 				@focus="handleFocus"
 				@blur="handleBlur"
 				@change="handleChange"
+			>
+				<template #suffixIcon><img :src="searchIcon" /></template
 			></a-select>
-			<!-- <div class="divider" /> -->
-		</a-input-group>
+			<!-- <div class="divider" /> --> </a-input-group
+		><smile-outlined class="ant-select-suffix" />
 	</div>
 </template>
 
@@ -45,6 +48,7 @@ import {
 } from '@ant-design/icons-vue';
 import { urgentStore } from '@/store/urgent';
 import { mapInstance } from '../index.jsx';
+import searchIcon from '@/static/img/urgent/battery.png';
 
 export default defineComponent({
 	props: {
@@ -115,6 +119,7 @@ export default defineComponent({
 			handleChange,
 			options,
 			dataList: dataLists,
+			searchIcon,
 		};
 	},
 });
@@ -145,7 +150,7 @@ export default defineComponent({
 		margin: 10px;
 	}
 	.ant-input-group {
-		border-bottom: 1px solid #31d4d5;
+		// border-bottom: 1px solid #31d4d5;
 		// background-color: rgba(49, 212, 213, 0.2);
 		height: 34px;
 		display: flex;
@@ -161,7 +166,9 @@ export default defineComponent({
 		.select1 {
 			width: 92px;
 			width: 70px;
+			width: 100px;
 			margin: 0;
+			border-bottom: 1px solid #31d4d5;
 			.ant-select-selector {
 				padding: 0px 8px;
 			}
@@ -169,6 +176,7 @@ export default defineComponent({
 		.select2 {
 			// width: 150px;
 			width: 100%;
+			border-bottom: 1px solid #31d4d5;
 		}
 		.ant-select-arrow {
 			color: white;

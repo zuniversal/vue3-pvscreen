@@ -122,6 +122,7 @@ export default defineComponent({
 				// rotation: 15,
 				viewMode: '3D',
 				mapStyle: 'amap://styles/852b41ec43aca7f9234571b282140fd2',
+				mapStyle: 'amap://styles/a52a222ecfdcec6c6b10919738977a03',
 			});
 			setTimeout(() => {
 				console.log('  延时器 ： ');
@@ -310,36 +311,36 @@ export default defineComponent({
 			initMarkerCluster();
 
 			const right = isNormal ? 850 : 690;
-			// 工具-罗盘
-			mapInstance.addControl(
-				new AMap.ControlBar({
-					theme: 'dark',
-					showZoomBar: false,
-					position: {
-						bottom: '110px',
-						right: `${right * scale}px`,
-						right: `100px`,
-					},
-				})
-			);
+			// // 工具-罗盘
+			// mapInstance.addControl(
+			// 	new AMap.ControlBar({
+			// 		theme: 'dark',
+			// 		showZoomBar: false,
+			// 		position: {
+			// 			bottom: '110px',
+			// 			right: `${right * scale}px`,
+			// 			right: `100px`,
+			// 		},
+			// 	})
+			// );
 
-			// 工具-缩放
-			AMapUI.loadUI(['control/BasicControl'], (BasicControl) => {
-				const right = isNormal ? 920 : 720;
-				mapInstance.addControl(
-					new BasicControl.Zoom({
-						//内置的dark主题
-						theme: 'dark',
-						//左下角
-						position: {
-							bottom: '106px',
-							right: `${right * scale}px`,
-							right: `120px`,
-						},
-						showZoomNum: false,
-					})
-				);
-			});
+			// // 工具-缩放
+			// AMapUI.loadUI(['control/BasicControl'], (BasicControl) => {
+			// 	const right = isNormal ? 920 : 720;
+			// 	mapInstance.addControl(
+			// 		new BasicControl.Zoom({
+			// 			//内置的dark主题
+			// 			theme: 'dark',
+			// 			//左下角
+			// 			position: {
+			// 				bottom: '106px',
+			// 				right: `${right * scale}px`,
+			// 				right: `120px`,
+			// 			},
+			// 			showZoomNum: false,
+			// 		})
+			// 	);
+			// });
 		};
 		console.log(' onMountedonMounted1 ： ', props); //
 		onMounted(() => {
@@ -379,7 +380,7 @@ export default defineComponent({
 				></LeftContent>
 				<RightContent></RightContent>
 				<SearchForm></SearchForm>
-				<MapTools
+				{/* <MapTools
 					scale={1}
 					isNormal
 					handleScale={() =>
@@ -388,7 +389,7 @@ export default defineComponent({
 					handleLocation={() =>
 						mapInstance.setZoomAndCenter(10, [121.555941, 31.178316])
 					}
-				/>
+				/> */}
 				<div className='bgPic'></div>
 				{/* <div className="leftBox">bbb
         <div className="cell2"></div>
